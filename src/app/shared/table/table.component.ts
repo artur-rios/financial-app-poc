@@ -1,13 +1,15 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { BudgetItem } from 'src/app/budget/budget-creation/budget-creation.component';
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnChanges {
-  @Input() data: Array<any> = [];
+  @Input() data: BudgetItem[] = [];
 
   public columns = ['name', 'value'];
 
@@ -17,12 +19,9 @@ export class TableComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.dataSource = new MatTableDataSource(this.data);
-
-    //! TEST
-    console.log('Table data:', this.data);
   }
 
-  public getTotalValue() {
+  public getTotalValue(): number {
     return this.data.map((t) => t.value).reduce((acc, value) => acc + value, 0);
   }
 }
